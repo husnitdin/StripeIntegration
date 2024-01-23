@@ -30,10 +30,10 @@ class StripeWebhookController {
         try {
             event = Webhook.constructEvent(
                 payload, sigHeader, endpointSecret
-            );
+            )
         } catch (e: SignatureVerificationException) {
-            println("⚠️  Webhook error while validating signature. e => $e");
-            return "";
+            println("⚠️  Webhook error while validating signature. e => $e")
+            return ""
         }
 
         // Deserialize the nested object inside the event
@@ -41,7 +41,7 @@ class StripeWebhookController {
         var stripeObject: StripeObject?  = null
 
         if (dataObjectDeserializer.getObject().isPresent) {
-            stripeObject = dataObjectDeserializer.getObject().get();
+            stripeObject = dataObjectDeserializer.getObject().get()
         } else {
             // Deserialization failed, probably due to an API version mismatch.
             // Refer to the Javadoc documentation on `EventDataObjectDeserializer` for
@@ -67,7 +67,7 @@ class StripeWebhookController {
             }
         }
 //        response.status(200);
-        return "";
+        return ""
     }
 }
 
