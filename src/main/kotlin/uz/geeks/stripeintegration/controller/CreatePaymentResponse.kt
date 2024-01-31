@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import spark.Spark.*
-import uz.geeks.stripeintegration.StripeRepo
 import uz.geeks.stripeintegration.dto.CreatePayment
 import uz.geeks.stripeintegration.dto.CreatePaymentResponse
 
@@ -18,8 +17,6 @@ class ServerController {
 
     @Value("\${stripe.api.key}")
     private val stripeApiKey: String = ""
-
-    private var stripeRepo: StripeRepo? = null
 
     @PostMapping("/create-payment-intent")
     fun createPaymentIntent(
@@ -33,6 +30,7 @@ class ServerController {
         val params = PaymentIntentCreateParams.builder()
             .setAmount(createPayment.amount.toLong()) // Stripe accepts as Cents
             .setCurrency("aed")
+            .addPaymentMethodType("card")
             .build()
 
         println(JsonMapper().writeValueAsString("params $params"))

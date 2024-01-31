@@ -29,6 +29,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.9.1")
     implementation("com.stripe:stripe-java:23.9.0")
     implementation ("org.springframework.boot:spring-boot-starter-thymeleaf")
+
     implementation ("org.postgresql:postgresql:42.5.1")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")

@@ -7,22 +7,23 @@ import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
-import spark.Spark.*
+import org.springframework.web.bind.annotation.RequestMapping
 import uz.geeks.stripeintegration.form.CheckoutForm
 
 @Controller
-class HomeController {
+@RequestMapping("/uz/geeks")
+class StripeHomeController {
 
     @Value("\${stripe.public.key}")
     private val stripePublicKey: String? = null
 
-    @GetMapping("/")
+    @GetMapping("/start")
     fun home(model: Model): String {
         model.addAttribute("checkoutForm", CheckoutForm())
         return "index"
     }
 
-    @PostMapping("/")
+    @PostMapping("/start")
     fun checkout(
         @ModelAttribute checkoutForm: CheckoutForm,
         bindingResult: BindingResult,
