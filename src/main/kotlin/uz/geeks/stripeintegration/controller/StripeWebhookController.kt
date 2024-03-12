@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/uz/geeks")
+@RequestMapping("/uz/geeks/start")
 class StripeWebhookController {
 
     @Value("\${stripe.webhook.secret}")
@@ -58,12 +58,10 @@ class StripeWebhookController {
             ("charge.succeeded") -> {
 
                 if (stripeObject is Charge) {
-                    val trId = (stripeObject.metadata).toString().split("=")[1].replace("}", "")
                     val expMonth = stripeObject.paymentMethodDetails.card.expMonth
                     val expYear = stripeObject.paymentMethodDetails.card.expYear
                     val pan = stripeObject.paymentMethodDetails.card.last4
 
-                    println(trId)
                     println(expMonth)
                     println(expYear)
                     println(pan)

@@ -21,16 +21,12 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("javax.validation:validation-api:2.0.1.Final")
-    implementation("org.springframework.data:spring-data-jpa:3.1.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.sparkjava:spark-core:2.9.4")
     implementation("com.google.code.gson:gson:2.9.1")
-    implementation("com.stripe:stripe-java:23.9.0")
     implementation ("org.springframework.boot:spring-boot-starter-thymeleaf")
-
-    implementation ("org.postgresql:postgresql:42.5.1")
+    implementation ("com.stripe:stripe-java:24.13.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

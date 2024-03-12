@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import spark.Spark.*
 import uz.geeks.stripeintegration.dto.CreatePayment
 import uz.geeks.stripeintegration.dto.CreatePaymentResponse
 
@@ -30,10 +29,12 @@ class ServerController {
         val params = PaymentIntentCreateParams.builder()
             .setAmount(createPayment.amount.toLong()) // Stripe accepts as Cents
             .setCurrency("aed")
-            .addPaymentMethodType("card")
+            .addAllPaymentMethodType(
+                listOf(
+                    "card"))
             .build()
 
-        println(JsonMapper().writeValueAsString("params $params"))
+        println("param => $params")
 
         val paymentIntent = PaymentIntent.create(params)
         return CreatePaymentResponse(paymentIntent.clientSecret)
