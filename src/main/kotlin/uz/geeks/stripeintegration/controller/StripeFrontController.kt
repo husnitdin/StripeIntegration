@@ -1,6 +1,5 @@
 package uz.geeks.stripeintegration.controller
 
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
@@ -12,7 +11,7 @@ import uz.geeks.stripeintegration.CredentialsUtils
 import uz.geeks.stripeintegration.form.CheckoutForm
 
 @Controller
-@RequestMapping("/uz/geeks")
+@RequestMapping("/api/interhub/fill-balance/stripe")
 class StripeFrontController {
 
     val stripePublicKey: String? get() = CredentialsUtils().getStripePublicKey()

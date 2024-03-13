@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form id="payment-form" th:action="@{/uz/geeks/pay}" th:object="${checkoutForm}" method="POST">
+<form id="payment-form" th:action="@{/api/interhub/fill-balance/stripe/pay}" th:object="${checkoutForm}" method="POST">
 
     <p><b>Welcome to OSON</b></p>
 

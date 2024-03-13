@@ -9,13 +9,12 @@ import com.stripe.model.EventDataObjectDeserializer
 import com.stripe.model.StripeObject
 import com.stripe.net.ApiResource
 import com.stripe.net.Webhook
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import uz.geeks.stripeintegration.CredentialsUtils
 
 @RestController
-@RequestMapping("/uz/geeks/start")
+@RequestMapping("/api/interhub/fill-balance/stripe")
 class StripeWebhookController {
 
     val endpointSecret: String? get() = CredentialsUtils().getStripeWebhookSecret()
