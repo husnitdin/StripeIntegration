@@ -6,9 +6,9 @@ import com.stripe.param.PaymentIntentCreateParams
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import uz.geeks.stripeintegration.utils.CredentialsUtils
-import uz.geeks.stripeintegration.dto.CreatePayment
 import uz.geeks.stripeintegration.dto.CreatePaymentResponse
+import uz.geeks.stripeintegration.dto.Transaction
+import uz.geeks.stripeintegration.utils.CredentialsUtils
 
 @RestController
 class ServerController {
@@ -17,19 +17,25 @@ class ServerController {
 
     @PostMapping("/create-payment-intent")
     fun createPaymentIntent(
-        @RequestBody createPayment: CreatePayment
+        @RequestBody transaction: Transaction
     ): CreatePaymentResponse {
 
         Stripe.apiKey = stripeApiKey
 
+        transaction.amount = 75
+        transaction.id = 738509380280
+
         return try{
-            val amount = createPayment.amount.times(100.toBigDecimal())
+
+            val amount = transaction.amount * 100
+
             val params = PaymentIntentCreateParams.builder()
-                .setAmount(amount.toLong())
+                .setAmount(amount)
                 .setCurrency("aed")
                 .addAllPaymentMethodType(
                     listOf(
                         "card"))
+                .putMetadata("transaction_id", transaction.id.toString())
                 .build()
 
             val paymentIntent = PaymentIntent.create(params)

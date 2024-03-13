@@ -12,8 +12,8 @@
 
     <p><b>Welcome to OSON</b></p>
 
-    <p>Amount: <input type="text" th:field="*{amount}" placeholder="Amount" required/></p>
-    <p th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}" style="color: darkred"></p>
+    <p>Amount: <input type="text" th:field="*{0}" placeholder="Amount" required/></p>
+    <p th:if="${#fields.hasErrors('amount')}" th:errors="*{0}" style="color: darkred"></p>
 
     <p><input type="Submit"/></p>
 
