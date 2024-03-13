@@ -20,10 +20,10 @@ class StripeHomeController {
     @GetMapping("/start")
     fun home(model: Model): String {
         model.addAttribute("checkoutForm", CheckoutForm())
-        return "index"
+        return "stripe_index"
     }
 
-    @PostMapping("/start")
+    @PostMapping("/pay")
     fun checkout(
         @ModelAttribute checkoutForm: CheckoutForm,
         bindingResult: BindingResult,
@@ -31,11 +31,11 @@ class StripeHomeController {
     ): String {
 
         return if (bindingResult.hasErrors()) {
-            "index"
+            "stripe_index"
         } else {
             model.addAttribute("stripePublicKey", stripePublicKey)
             model.addAttribute("amount", checkoutForm.amount)
-            "checkout"
+            "stripe_checkout"
         }
     }
 }

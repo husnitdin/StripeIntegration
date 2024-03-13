@@ -1,6 +1,5 @@
 package uz.geeks.stripeintegration.controller
 
-import com.fasterxml.jackson.databind.json.JsonMapper
 import com.stripe.Stripe
 import com.stripe.model.PaymentIntent
 import com.stripe.param.PaymentIntentCreateParams
@@ -24,19 +23,21 @@ class ServerController {
 
         Stripe.apiKey = stripeApiKey
 
-        println(JsonMapper().writeValueAsString(createPayment.amount))
+        val amount = createPayment.amount * 100.toBigDecimal()
 
         val params = PaymentIntentCreateParams.builder()
-            .setAmount(createPayment.amount.toLong()) // Stripe accepts as Cents
+            .setAmount(amount.toLong())
             .setCurrency("aed")
             .addAllPaymentMethodType(
                 listOf(
                     "card"))
             .build()
 
-        println("param => $params")
-
         val paymentIntent = PaymentIntent.create(params)
-        return CreatePaymentResponse(paymentIntent.clientSecret)
+        val createPaymentResponse = CreatePaymentResponse(paymentIntent.clientSecret)
+
+        println("createPaymentResponse => ${createPaymentResponse.clientSecret}")
+
+        return createPaymentResponse
     }
 }
