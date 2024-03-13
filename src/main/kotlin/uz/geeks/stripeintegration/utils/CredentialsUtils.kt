@@ -1,4 +1,4 @@
-package uz.geeks.stripeintegration
+package uz.geeks.stripeintegration.utils
 
 import java.io.File
 import org.json.JSONObject

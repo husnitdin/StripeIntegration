@@ -11,7 +11,7 @@ import com.stripe.net.ApiResource
 import com.stripe.net.Webhook
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import uz.geeks.stripeintegration.CredentialsUtils
+import uz.geeks.stripeintegration.utils.CredentialsUtils
 
 @RestController
 @RequestMapping("/api/interhub/fill-balance/stripe")

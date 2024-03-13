@@ -6,7 +6,7 @@ import com.stripe.param.PaymentIntentCreateParams
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import uz.geeks.stripeintegration.CredentialsUtils
+import uz.geeks.stripeintegration.utils.CredentialsUtils
 import uz.geeks.stripeintegration.dto.CreatePayment
 import uz.geeks.stripeintegration.dto.CreatePaymentResponse
 
