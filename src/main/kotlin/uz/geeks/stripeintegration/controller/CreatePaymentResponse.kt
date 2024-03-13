@@ -23,21 +23,26 @@ class ServerController {
 
         Stripe.apiKey = stripeApiKey
 
-        val amount = createPayment.amount * 100.toBigDecimal()
+        return try{
+            val amount = createPayment.amount.times(100.toBigDecimal())
+            val params = PaymentIntentCreateParams.builder()
+                .setAmount(amount.toLong())
+                .setCurrency("aed")
+                .addAllPaymentMethodType(
+                    listOf(
+                        "card"))
+                .build()
 
-        val params = PaymentIntentCreateParams.builder()
-            .setAmount(amount.toLong())
-            .setCurrency("aed")
-            .addAllPaymentMethodType(
-                listOf(
-                    "card"))
-            .build()
+            val paymentIntent = PaymentIntent.create(params)
 
-        val paymentIntent = PaymentIntent.create(params)
-        val createPaymentResponse = CreatePaymentResponse(paymentIntent.clientSecret)
+            val createPaymentResponse = CreatePaymentResponse(paymentIntent.clientSecret)
 
-        println("createPaymentResponse => ${createPaymentResponse.clientSecret}")
+            CreatePaymentResponse(createPaymentResponse.clientSecret)
 
-        return createPaymentResponse
+        } catch (e: Exception) {
+            e.printStackTrace()
+            CreatePaymentResponse("")
+        }
+
     }
 }
