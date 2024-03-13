@@ -29,4 +29,11 @@ class StripeFrontController {
             "stripe_checkout"
         }
     }
+
+    @GetMapping("/wait")
+    fun wait(
+    ): String {
+        return "stripe_waiting_page"
+    }
+
 }
