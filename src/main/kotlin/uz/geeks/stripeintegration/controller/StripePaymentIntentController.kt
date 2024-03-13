@@ -11,7 +11,7 @@ import uz.geeks.stripeintegration.dto.Transaction
 import uz.geeks.stripeintegration.utils.CredentialsUtil
 
 @RestController
-class StripePaymentController {
+class StripePaymentIntentController {
 
     val stripeApiKey: String? get() = CredentialsUtil().getStripeApiKey()
 
