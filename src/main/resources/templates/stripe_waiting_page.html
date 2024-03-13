@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .payment-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .status {
+            text-align: center;
+            font-size: 18px;
+            color: #ff9800; /* orange color for waiting status */
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="payment-container">
+    <h1>Payment Information</h1>
+    <p>Date: <span id="current-date"></span></p>
+    <p>Status: <span class="status">WAITING</span></p>
+</div>
+
+<script>
+    // JavaScript to get today's date and time and display it in the HTML
+    const currentDateElement = document.getElementById('current-date');
+    const currentDate = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+    currentDateElement.textContent = currentDate.toLocaleDateString('en-US', options);
+</script>
+
+</body>
+</html>
