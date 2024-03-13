@@ -1,0 +1,7 @@
+{
+  "stripe_acquiring": {
+    "api_key": "",
+    "public_key": "",
+    "webhook_secret": ""
+  }
+}
