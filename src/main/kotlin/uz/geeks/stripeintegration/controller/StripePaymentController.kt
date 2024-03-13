@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import uz.geeks.stripeintegration.CredentialsUtils
 import uz.geeks.stripeintegration.dto.CreatePayment
 import uz.geeks.stripeintegration.dto.CreatePaymentResponse
 
 @RestController
 class ServerController {
 
-    @Value("\${stripe.api.key}")
-    private val stripeApiKey: String = ""
+    val stripeApiKey: String? get() = CredentialsUtils().getStripeApiKey()
 
     @PostMapping("/create-payment-intent")
     fun createPaymentIntent(

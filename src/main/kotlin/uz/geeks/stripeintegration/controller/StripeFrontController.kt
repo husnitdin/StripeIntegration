@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import uz.geeks.stripeintegration.CredentialsUtils
 import uz.geeks.stripeintegration.form.CheckoutForm
 
 @Controller
 @RequestMapping("/uz/geeks")
-class StripeHomeController {
+class StripeFrontController {
 
-    @Value("\${stripe.public.key}")
-    private val stripePublicKey: String? = null
+    val stripePublicKey: String? get() = CredentialsUtils().getStripePublicKey()
 
     @GetMapping("/start")
     fun home(model: Model): String {

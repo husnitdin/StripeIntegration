@@ -3,19 +3,22 @@ package uz.geeks.stripeintegration.controller
 import com.fasterxml.jackson.databind.json.JsonMapper
 import com.stripe.Stripe
 import com.stripe.exception.SignatureVerificationException
-import com.stripe.model.*
+import com.stripe.model.Charge
+import com.stripe.model.Event
+import com.stripe.model.EventDataObjectDeserializer
+import com.stripe.model.StripeObject
 import com.stripe.net.ApiResource
 import com.stripe.net.Webhook
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import uz.geeks.stripeintegration.CredentialsUtils
 
 @RestController
 @RequestMapping("/uz/geeks/start")
 class StripeWebhookController {
 
-    @Value("\${stripe.webhook.secret}")
-    val endpointSecret: String? = null
+    val endpointSecret: String? get() = CredentialsUtils().getStripeWebhookSecret()
 
     @PostMapping("/webhooks")
     @ResponseBody
