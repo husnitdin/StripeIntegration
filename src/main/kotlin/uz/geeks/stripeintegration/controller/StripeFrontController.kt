@@ -11,7 +11,7 @@ import uz.geeks.stripeintegration.utils.CredentialsUtils
 import uz.geeks.stripeintegration.form.CheckoutForm
 
 @Controller
-@RequestMapping("/api/interhub/fill-balance/stripe")
+@RequestMapping("/api/merchant/payment/pull/stripe")
 class StripeFrontController {
 
     val stripePublicKey: String? get() = CredentialsUtils().getStripePublicKey()
@@ -28,9 +28,6 @@ class StripeFrontController {
         bindingResult: BindingResult,
         model: Model
     ): String {
-
-
-
 
         return if (bindingResult.hasErrors()) {
             "stripe_index"

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 import uz.geeks.stripeintegration.utils.CredentialsUtils
 
 @RestController
-@RequestMapping("/api/interhub/fill-balance/stripe")
+@RequestMapping("/api/merchant/payment/pull/stripe")
 class StripeWebhookController {
 
     val endpointSecret: String? get() = CredentialsUtils().getStripeWebhookSecret()
