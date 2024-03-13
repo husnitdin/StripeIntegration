@@ -11,13 +11,13 @@ import com.stripe.net.ApiResource
 import com.stripe.net.Webhook
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import uz.geeks.stripeintegration.utils.CredentialsUtils
+import uz.geeks.stripeintegration.utils.CredentialsUtil
 
 @RestController
 @RequestMapping("/api/merchant/payment/pull/stripe")
 class StripeWebhookController {
 
-    val endpointSecret: String? get() = CredentialsUtils().getStripeWebhookSecret()
+    val endpointSecret: String? get() = CredentialsUtil().getStripeWebhookSecret()
 
     @PostMapping("/webhooks")
     @ResponseBody

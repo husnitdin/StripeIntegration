@@ -3,7 +3,7 @@ package uz.geeks.stripeintegration.utils
 import java.io.File
 import org.json.JSONObject
 
-class CredentialsUtils {
+class CredentialsUtil {
 
     fun getStripeApiKey(): String {
         val json = getStripeAcquiringData()

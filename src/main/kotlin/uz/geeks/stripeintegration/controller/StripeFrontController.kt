@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.RequestMapping
 import uz.geeks.stripeintegration.form.CheckoutForm
-import uz.geeks.stripeintegration.utils.CredentialsUtils
+import uz.geeks.stripeintegration.utils.CredentialsUtil
 
 @Controller
 @RequestMapping("/api/merchant/payment/pull/stripe")
 class StripeFrontController {
 
-    val stripePublicKey: String? get() = CredentialsUtils().getStripePublicKey()
+    val stripePublicKey: String? get() = CredentialsUtil().getStripePublicKey()
 
     @GetMapping("/pay")
     fun checkout(
