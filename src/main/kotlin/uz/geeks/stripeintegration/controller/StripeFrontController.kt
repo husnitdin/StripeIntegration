@@ -3,9 +3,8 @@ package uz.geeks.stripeintegration.controller
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
+import uz.geeks.stripeintegration.dto.Transaction
 import uz.geeks.stripeintegration.form.CheckoutForm
 import uz.geeks.stripeintegration.utils.CredentialsUtil
 
@@ -31,8 +30,8 @@ class StripeFrontController {
     }
 
     @GetMapping("/wait")
-    fun wait(
-    ): String {
+    fun paymentResponse(
+    ): Any? {
         return "stripe_waiting_page"
     }
 

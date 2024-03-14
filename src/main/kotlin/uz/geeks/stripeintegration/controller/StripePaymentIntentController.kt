@@ -15,32 +15,36 @@ class StripePaymentIntentController {
 
     val stripeApiKey: String? get() = CredentialsUtil().getStripeApiKey()
 
-    @PostMapping("/create-payment-intent")
+    @PostMapping("/create-intent")
     fun createPaymentIntent(
         @RequestBody transaction: Transaction
     ): CreatePaymentResponse {
 
         Stripe.apiKey = stripeApiKey
 
-        transaction.amount = 75
-        transaction.id = 738509380280
+        transaction.amount = 12
+        transaction.id = 98472
 
-        return try{
+        return try {
 
-            val amount = transaction.amount * 100
+            val sum = transaction.amount * 100
 
             val params = PaymentIntentCreateParams.builder()
-                .setAmount(amount)
+                .setAmount(sum)
                 .setCurrency("aed")
                 .addAllPaymentMethodType(
                     listOf(
-                        "card"))
+                        "card"
+                    )
+                )
                 .putMetadata("transaction_id", transaction.id.toString())
                 .build()
 
             val paymentIntent = PaymentIntent.create(params)
 
             val createPaymentResponse = CreatePaymentResponse(paymentIntent.clientSecret)
+
+            println("client secret " + createPaymentResponse.clientSecret)
 
             CreatePaymentResponse(createPaymentResponse.clientSecret)
 
