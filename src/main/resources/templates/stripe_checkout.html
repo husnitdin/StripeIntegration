@@ -8,6 +8,7 @@
     <script src="https://js.stripe.com/v3/"></script>
     <script th:inline="javascript">
         const stripePublicKey = [[${stripePublicKey}]];
+        const secretKey = [[${secretKey}]];
         const amount = [[${amount}]];
     </script>
 
@@ -45,7 +46,7 @@
         // const response = await fetch("/api/merchant/payment/pull/stripe/start", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ amount: amount }),
+            body: JSON.stringify({ amount: 1000 }),
         });
         const { clientSecret } = await response.json();
 

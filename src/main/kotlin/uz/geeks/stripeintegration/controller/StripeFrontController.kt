@@ -1,9 +1,11 @@
 package uz.geeks.stripeintegration.controller
 
+import org.springframework.http.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.client.RestTemplate
 import uz.geeks.stripeintegration.dto.Transaction
 import uz.geeks.stripeintegration.form.CheckoutForm
 import uz.geeks.stripeintegration.utils.CredentialsUtil
@@ -14,8 +16,29 @@ class StripeFrontController {
 
     val stripePublicKey: String? get() = CredentialsUtil().getStripePublicKey()
 
-    @GetMapping("/pay")
+    @PostMapping("/start")
+    fun start(
+        @RequestBody transaction: Transaction
+    ):String {
+
+        val restTemplate = RestTemplate()
+        val url = "http://localhost:8080/create-intent"
+
+        val requestBody = mapOf(
+            "amount" to transaction.amount,
+            "id" to transaction.id
+        )
+        val headers = HttpHeaders()
+        headers.contentType = MediaType.APPLICATION_JSON
+        val requestEntity = HttpEntity(requestBody, headers)
+        val responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String::class.java)
+
+        return "http://localhost:8080/api/merchant/payment/pull/stripe/pay/${responseEntity.body}"
+    }
+
+    @GetMapping("/pay/{secret_key}")
     fun checkout(
+        @PathVariable("secret_key") secretKey: String,
         @ModelAttribute checkoutForm: CheckoutForm,
         bindingResult: BindingResult,
         model: Model
@@ -25,6 +48,7 @@ class StripeFrontController {
             "stripe_index"
         } else {
             model.addAttribute("stripePublicKey", stripePublicKey)
+            model.addAttribute("secretKey", secretKey)
             "stripe_checkout"
         }
     }

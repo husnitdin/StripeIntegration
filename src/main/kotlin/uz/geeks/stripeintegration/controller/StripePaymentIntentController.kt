@@ -2,13 +2,16 @@ package uz.geeks.stripeintegration.controller
 
 import com.stripe.Stripe
 import com.stripe.model.PaymentIntent
+import com.stripe.model.SetupIntent
 import com.stripe.param.PaymentIntentCreateParams
+import com.stripe.param.SetupIntentCreateParams
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import uz.geeks.stripeintegration.dto.CreatePaymentResponse
 import uz.geeks.stripeintegration.dto.Transaction
 import uz.geeks.stripeintegration.utils.CredentialsUtil
+
 
 @RestController
 class StripePaymentIntentController {
@@ -18,12 +21,11 @@ class StripePaymentIntentController {
     @PostMapping("/create-intent")
     fun createPaymentIntent(
         @RequestBody transaction: Transaction
-    ): CreatePaymentResponse {
+    ): String {
 
         Stripe.apiKey = stripeApiKey
 
-        transaction.amount = 12
-        transaction.id = 98472
+        println("${transaction.amount} amount")
 
         return try {
 
@@ -44,13 +46,18 @@ class StripePaymentIntentController {
 
             val createPaymentResponse = CreatePaymentResponse(paymentIntent.clientSecret)
 
-            println("client secret " + createPaymentResponse.clientSecret)
+            createPaymentResponse.clientSecret
 
-            CreatePaymentResponse(createPaymentResponse.clientSecret)
+//            val params =
+//                SetupIntentCreateParams.builder()
+//                    .setUsage(SetupIntentCreateParams.Usage.ON_SESSION)
+//                    .build()
+//
+//            val setupIntent = SetupIntent.create(params)
 
         } catch (e: Exception) {
             e.printStackTrace()
-            CreatePaymentResponse("")
+            ""
         }
 
     }
