@@ -8,8 +8,7 @@
     <script src="https://js.stripe.com/v3/"></script>
     <script th:inline="javascript">
         const stripePublicKey = [[${stripePublicKey}]];
-        const secretKey = [[${secretKey}]];
-        const amount = [[${amount}]];
+        const secret = [[${clientSecret}]];
     </script>
 
 </head>
@@ -41,14 +40,7 @@
 
     // Fetches a payment intent and captures the client secret
     async function initialize() {
-
-        const response = await fetch("/create-intent", {
-        // const response = await fetch("/api/merchant/payment/pull/stripe/start", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ amount: 1000 }),
-        });
-        const { clientSecret } = await response.json();
+        const { clientSecret } = {clientSecret: secret}
 
         const appearance = {
             theme: 'stripe',

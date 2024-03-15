@@ -38,7 +38,7 @@ class StripeFrontController {
 
     @GetMapping("/pay/{secret_key}")
     fun checkout(
-        @PathVariable("secret_key") secretKey: String,
+        @PathVariable("secret_key") clientSecret: String,
         @ModelAttribute checkoutForm: CheckoutForm,
         bindingResult: BindingResult,
         model: Model
@@ -48,7 +48,7 @@ class StripeFrontController {
             "stripe_index"
         } else {
             model.addAttribute("stripePublicKey", stripePublicKey)
-            model.addAttribute("secretKey", secretKey)
+            model.addAttribute("clientSecret", clientSecret)
             "stripe_checkout"
         }
     }
