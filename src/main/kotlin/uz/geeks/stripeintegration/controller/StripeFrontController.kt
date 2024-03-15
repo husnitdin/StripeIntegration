@@ -1,12 +1,12 @@
 package uz.geeks.stripeintegration.controller
 
-import org.springframework.http.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
-import org.springframework.web.bind.annotation.*
-import org.springframework.web.client.RestTemplate
-import uz.geeks.stripeintegration.dto.Transaction
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
 import uz.geeks.stripeintegration.form.CheckoutForm
 import uz.geeks.stripeintegration.utils.CredentialsUtil
 
@@ -15,26 +15,6 @@ import uz.geeks.stripeintegration.utils.CredentialsUtil
 class StripeFrontController {
 
     val stripePublicKey: String? get() = CredentialsUtil().getStripePublicKey()
-
-    @PostMapping("/start")
-    fun start(
-        @RequestBody transaction: Transaction
-    ):String {
-
-        val restTemplate = RestTemplate()
-        val url = "http://localhost:8080/create-intent"
-
-        val requestBody = mapOf(
-            "amount" to transaction.amount,
-            "id" to transaction.id
-        )
-        val headers = HttpHeaders()
-        headers.contentType = MediaType.APPLICATION_JSON
-        val requestEntity = HttpEntity(requestBody, headers)
-        val responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String::class.java)
-
-        return "http://localhost:8080/api/merchant/payment/pull/stripe/pay/${responseEntity.body}"
-    }
 
     @GetMapping("/pay/{secret_key}")
     fun checkout(
