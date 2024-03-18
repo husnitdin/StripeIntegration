@@ -5,11 +5,8 @@ import com.stripe.model.PaymentIntent
 import com.stripe.param.PaymentIntentCreateParams
 import uz.geeks.stripeintegration.dto.CreatePaymentResponse
 import uz.geeks.stripeintegration.dto.Transaction
-import uz.geeks.stripeintegration.utils.CredentialsUtil
 
-class StripePaymentIntentOperator {
-
-    val stripeApiKey: String get() = CredentialsUtil().getStripeApiKey()
+class StripePaymentIntentOperator: BaseStripePullOperator() {
 
     fun createPaymentIntent(
        transaction: Transaction
@@ -34,7 +31,7 @@ class StripePaymentIntentOperator {
 
             val createPaymentResponse = CreatePaymentResponse(PaymentIntent.create(params).clientSecret)
 
-            return "http://localhost:8080/api/merchant/payment/pull/stripe/pay/${createPaymentResponse.clientSecret}"
+            return "$API_URL_CHECK${createPaymentResponse.clientSecret}"
 
         } catch (e: Exception) {
             e.printStackTrace()
